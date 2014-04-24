@@ -25,8 +25,7 @@ class PyBeaconClient():
 
         # Get log directories (one for each day EXCEPT most recent)
         stdin, stdout, stderr = self._ssh.exec_command('ls ' + devicepath)
-        # logfolders = [d.rstrip() for d in stdout.readlines()[:-1]]
-        logfolders = [d.rstrip() for d in stdout.readlines()]
+        logfolders = [d.rstrip() for d in stdout.readlines()[:-1]]
 
         # Create local log folders
         self._create_log_folders(localpath, logfolders)
