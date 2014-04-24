@@ -9,6 +9,7 @@ of how to use the PyBeaconClient object. Stay tuned for more
 documentation.</p>
 
 
+<h5>Author</h5>
 Calvin Belden<br>
 Team Green Space<br>
 University of Notre Dame<br>
