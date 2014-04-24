@@ -1,16 +1,18 @@
 from pybeaconclient import PyBeaconClient
+import sys
+import getpass
 
 
 if __name__ == '__main__':
 
-    # Lookup device IP
-    #sys.stdout.write('Pole Number: ')
-    #IP = raw_input()
-    IP = '10.0.0.5'
+    # Get device IP
+    sys.stdout.write('IP: ')
+    IP = raw_input()
 
     # Device credentials (should be same on each device)
-    user = 'pi'
-    pwd = 'greenspace'
+    sys.stdout.write('Username: ')
+    user = raw_input()
+    pwd = getpass.getpass()
 
     # Create ssh connection
     pybeacon_client = PyBeaconClient(IP, user, pwd)
