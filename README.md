@@ -1,4 +1,4 @@
-<h2>pybeacon</h2>
+<h2>pybeaconclient</h2>
 <h4>Overview</h4>
 <p>
 The pybeaconclient tool is a Python package that recovers the beacon records from a device running the pybeacon package (a beacon logging tool). Implemented and tested using a MacBook Pro (2010, Mavericks), pybeaconclient is designed to automatically recover all beacon records without affecting the operation of the detecting device.
