@@ -3,7 +3,7 @@ import os
 
 
 class PyBeaconClient():
-    """Communicates with a pybeacon device."""
+    """Communicates with a trackr device."""
 
     def __init__(self, IP, username, password):
         """Initializes the PyBeaconClient instance."""
@@ -21,11 +21,18 @@ class PyBeaconClient():
             exit(-1)
 
     def get_logs(self, devicepath, localpath):
-        """Retrieves the beacon logs stored on the logging device and stores them in localpath."""
+        """Retrieves the beacon logs stored on the logging device at devicepath and stores them locally in localpath."""
+
+        # Format directories
+        devicepath = devicepath.rstrip('/')
+        localpath = localpath.rstrip('/')
 
         # Get log directories (one for each day EXCEPT most recent)
         stdin, stdout, stderr = self._ssh.exec_command('ls ' + devicepath)
         logfolders = [d.rstrip() for d in stdout.readlines()[:-1]]
+
+        # Print no. found folders
+        print 'Found ', len(logfolders), ' to retrieve..'
 
         # Create local log folders
         self._create_log_folders(localpath, logfolders)
@@ -40,20 +47,24 @@ class PyBeaconClient():
             stdin, stdout, stderr = self._ssh.exec_command('ls ' + fullpath)
             logs = [l.rstrip() for l in stdout.readlines()]
 
+            print 'Copying ' + logfolder + ' ...'
+
             for log in logs:
 
                 src = '/'.join([devicepath, logfolder, log])
                 target = '/'.join([localpath, logfolder, log])
 
+                print '\tfetching ' + log + '...'
+
                 try:
                     ftp.get(src, target)
                 except Exception:
-                    print 'Error copying ' + src + ' to ' + target
+                    print '*** Error copying ' + src + ' to ' + target
 
         ftp.close()
 
     def _create_log_folders(self, localpath, logfolders):
-        """Generates a directory for each listin gin logfolders in the directory specified by localpath."""
+        """Generates a local log directory in localpath for each directory in logfolders."""
 
         for logfolder in logfolders:
 

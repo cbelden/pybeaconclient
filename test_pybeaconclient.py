@@ -17,5 +17,11 @@ if __name__ == '__main__':
     # Create ssh connection
     pybeacon_client = PyBeaconClient(IP, user, pwd)
 
+    sys.stdout.write('Device Log Address: ')
+    devicepath = raw_input()
+
+    sys.stdout.write('Local Log Address: ')
+    localpath = raw_input()
+
     # Get logs
-    pybeacon_client.get_logs('/home/pi/gspace/src/logs', '../beacon_logs')
+    pybeacon_client.get_logs(devicepath, localpath)
